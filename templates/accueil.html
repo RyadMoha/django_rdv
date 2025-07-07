@@ -1,0 +1,47 @@
+{# Charge les balises statiques pour pouvoir utiliser {% static %} #}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  
+  {# Bloc pour définir le <title> de chaque page ; peut être surchargé dans les templates enfants #}
+  <title>{% block title %}Coach – Prise de RDV{% endblock %}</title>
+  
+  {# Inclusion d’une feuille de style CSS via la balise static #}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+  <header>
+    {# Titre ou logo du site #}
+    <h1>Mon Coach</h1>
+    
+    <nav>
+      {# Lien vers la page d’accueil (nommée 'accueil' dans urls.py) #}
+      <a href="{% url 'accueil' %}">Accueil</a>
+      
+      {# Si l’utilisateur est connecté, on affiche des liens dédiés #}
+      {% if user.is_authenticated %}
+        {# Vers son tableau de bord #}
+        <a href="{% url 'dashboard' %}">Tableau de bord</a>
+        {# Déconnexion via la vue logout #}
+        <a href="{% url 'logout' %}">Déconnexion</a>
+      {% else %}
+        {# Si non connecté, proposer la connexion #}
+        <a href="{% url 'login' %}">Connexion</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {# Bloc principal pour le contenu spécifique de chaque page #}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    {# Affiche l’année actuelle ; nécessite un context processor pour 'now' #}
+    <p>&copy; {{ now.year }} Mon Coach</p>
+  </footer>
+</body>
+</html>
