@@ -1,7 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Mon tableau de bord{% endblock %}
 
 {% block content %}
-  <h2>Mes rendez-vous</h2>
-  <p>Encore rien à afficher…</p>
+  <h2> <center>Mes rendez-vous</center></h2>
+  {% if rdvs %}
+    <ul>
+      {% for rdv in rdvs %}
+        <li>Le {{ rdv.date }} à {{ rdv.heure }} avec Sigmund Freud </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Vous n'avez pas encore de rendez-vous.</p>
+  {% endif %}
 {% endblock %}

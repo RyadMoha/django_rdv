@@ -1,9 +1,8 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block title %}Prendre un rendez-vous{% endblock %}
 
 {% block content %}
-  <h2>Prendre un rendez-vous</h2>
+  <h2>Réserver un créneau</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

@@ -1,7 +1,31 @@
-{% extends 'base.html' %}
-{% block title %}Tableau de bord du coach{% endblock %}
+{% extends "base.html" %}
+{% block title %}Tableau de bord Coach{% endblock %}
 
 {% block content %}
-  <h2>Tous les rendez-vous</h2>
-  <p>Encore rien à afficher…</p>
+  <h2>Rendez-vous à venir</h2>
+  
+  {% if rdvs %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Client</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rdv in rdvs %}
+          <tr>
+            <td>{{ rdv.date|date:"d/m/Y" }}</td>
+            <td>{{ rdv.heure|time:"H:i" }}</td>
+            <td>{{ rdv.utilisateur}}</td>
+            <td>{{ rdv.description|default:"(aucune description)" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Aucun rendez-vous prévu pour le moment.</p>
+  {% endif %}
 {% endblock %}
