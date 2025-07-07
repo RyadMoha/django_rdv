@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rdv',
 ]
 
 MIDDLEWARE = [
@@ -54,13 +55,17 @@ ROOT_URLCONF = 'coach_rdv.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates' ],   # ← ton dossier templates à la racine
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # par défaut, tu devrais déjà avoir :
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # si tu veux utiliser {{ now.year }}, tu peux remplacer par :
+                # 'django.template.context_processors.tz',
             ],
         },
     },
@@ -120,3 +125,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Auth / redirections
+
+LOGIN_REDIRECT_URL = '/dashboard/'      # après connexion
+LOGOUT_REDIRECT_URL = '/'               # après déconnexion (optionnel)
+LOGIN_URL = '/login/'                   # page de connexion (valeur par défaut déjà OK)
