@@ -21,19 +21,3 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
-
-@login_required
-def dashboard(request):
-    """
-    Affiche le dashboard du client ou du coach selon le rôle de l'utilisateur.
-    """
-    user = request.user
-
-    if user.is_superuser:
-        # Dashboard coach : affiche tous les rendez-vous
-        rdvs = RendezVous.objects.all().order_by('date', 'heure')
-        return render(request, 'dashboard_coach.html', {'rdvs': rdvs})
-    else:
-        # Dashboard client : affiche ses propres rendez-vous
-        rdvs = RendezVous.objects.filter(utilisateur=user).order_by('date', 'heure')
-        return render(request, 'dashboard_client.html', {'rdvs': rdvs})
