@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import accueil, signup, dashboard
-from .views import prendre_rdv
+from commande.views import prendre_rdv
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
